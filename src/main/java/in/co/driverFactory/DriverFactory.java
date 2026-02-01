@@ -35,7 +35,7 @@ public class DriverFactory {
 
         try {
             if (remote.equalsIgnoreCase("true")) {
-                URL gridUrl = new URL("http://localhost:4444/wd/hub");
+                URL gridUrl = new URL("http://selenium:4444/wd/hub");
                 driver.set(new RemoteWebDriver(gridUrl, options));
             } else {
                 WebDriverManager.chromedriver().setup();
