@@ -4,4 +4,5 @@ WORKDIR /app
 
 COPY . .
 
-RUN gradle clean test -Dremote=true --no-daemon
+# ✅ ONLY BUILD — NO SELENIUM HERE
+RUN gradle clean build -x test --no-daemon
