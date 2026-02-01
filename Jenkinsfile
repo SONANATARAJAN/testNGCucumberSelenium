@@ -50,15 +50,17 @@ pipeline {
             }
         }
 
-        stage('Run Tests') {
-            steps {
-                sh '''
-                docker run --rm \
-                  --network selenium-net \
-                  cucumber-tests
-                '''
-            }
-        }
+      stage('Run Tests') {
+    steps {
+        sh '''
+            docker run --rm \
+              --network selenium-net \
+              cucumber-tests \
+              gradle test -Dremote=true --no-daemon
+        '''
+    }
+}
+
     }
 
     post {
