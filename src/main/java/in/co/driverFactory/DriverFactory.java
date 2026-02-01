@@ -23,16 +23,13 @@ public class DriverFactory {
         String remote = System.getProperty("remote", "false");
 
         ChromeOptions options = new ChromeOptions();
-       options.addArguments("--headless=new");
-        options.addArguments("--no-sandbox");
-        options.addArguments("--disable-dev-shm-usage");
-        options.addArguments("--disable-gpu");
-        options.addArguments("--window-size=1920,1080");
+      options.addArguments(
+                "--headless=new",
+                "--no-sandbox",
+                "--disable-dev-shm-usage"
+        );
 
-        // Optional
-        options.addArguments("--disable-notifications");
-        options.addArguments("--disable-extensions");
-
+      
         try {
             if (remote.equalsIgnoreCase("true")) {
                 URL gridUrl = new URL("http://selenium:4444/wd/hub");
