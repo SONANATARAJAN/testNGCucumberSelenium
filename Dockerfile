@@ -1,4 +1,7 @@
-FROM gradle:8.6-jdk17
+FROM gradle:8.5-jdk17
+
 WORKDIR /app
+
 COPY . .
-RUN chmod +x gradlew
+
+RUN gradle clean test --no-daemon
