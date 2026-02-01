@@ -11,7 +11,7 @@ public class Hooks {
 
     @Before
     public void beforeScenario() throws InterruptedException {
-        DriverFactory.initDriver();
+        DriverFactory.initDriver(true);
         DriverFactory.getDriver().get("https://www.flipkart.com/");
         Thread.sleep(4000);
 
