@@ -20,7 +20,7 @@ public class DriverFactory {
 
         ChromeOptions options = new ChromeOptions();
 
-        // ✅ GRID SAFE OPTIONS
+        // ✅ SELENIUM GRID SAFE OPTIONS
         options.addArguments(
                 "--headless=new",
                 "--no-sandbox",
@@ -33,7 +33,7 @@ public class DriverFactory {
             if (remote.equalsIgnoreCase("true")) {
                 driver.set(
                         new RemoteWebDriver(
-                                new URL("http://selenium:4444"),
+                                new URL("http://selenium:4444/wd/hub"),
                                 options
                         )
                 );
