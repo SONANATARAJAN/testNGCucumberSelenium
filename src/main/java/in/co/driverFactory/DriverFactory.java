@@ -23,15 +23,15 @@ public class DriverFactory {
         String remote = System.getProperty("remote", "false");
 
         ChromeOptions options = new ChromeOptions();
-        options.addArguments("--start-maximized");
-        options.addArguments("--disable-notifications");
-        options.addArguments("--disable-popup-blocking");
-        options.addArguments("--disable-infobars");
-        options.addArguments("--disable-extensions");
-        options.addArguments("--disable-gpu");
+       options.addArguments("--headless=new");
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
-        options.addArguments("--incognito");
+        options.addArguments("--disable-gpu");
+        options.addArguments("--window-size=1920,1080");
+
+        // Optional
+        options.addArguments("--disable-notifications");
+        options.addArguments("--disable-extensions");
 
         try {
             if (remote.equalsIgnoreCase("true")) {
