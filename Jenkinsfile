@@ -18,7 +18,7 @@ pipeline {
             }
         }
 
-       stage('Start Selenium Container') {
+      stage('Start Selenium Container') {
     steps {
         sh '''
         docker rm -f selenium || true
@@ -29,11 +29,17 @@ pipeline {
           --shm-size="2g" \
           selenium/standalone-chrome:4.17.0
 
-        echo "⏳ Waiting for Selenium Grid..."
-        sleep 20
+        echo "⏳ Waiting for Selenium Grid to be READY..."
+
+        until curl -s http://selenium:4444/status | grep -q '"ready":true'; do
+          sleep 2
+        done
+
+        echo "✅ Selenium Grid is READY"
         '''
     }
 }
+
 
 
         stage('Build Test Image') {
