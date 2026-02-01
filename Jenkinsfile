@@ -40,16 +40,17 @@ pipeline {
             }
         }
 
-        stage('Run Tests (Gradle)') {
-            steps {
-                sh '''
-                docker run --rm \
-                  --network selenium-net \
-                  cucumber-tests \
-                  ./gradlew clean test -Dremote=true
-                '''
-            }
-        }
+       stage('Run Tests') {
+    steps {
+        sh '''
+        docker run --rm \
+          --network selenium-net \
+          cucumber-tests \
+          ./gradlew test -Dremote=true
+        '''
+    }
+}
+
     }
 
     post {
