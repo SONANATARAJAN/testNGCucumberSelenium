@@ -19,22 +19,21 @@ public class DriverFactory {
         String remote = System.getProperty("remote", "false");
 
         ChromeOptions options = new ChromeOptions();
-options.addArguments(
-        "--headless=new",
-        "--no-sandbox",
-        "--disable-dev-shm-usage",
-        "--disable-gpu",
-        "--window-size=1920,1080"
-);
-
+        options.addArguments(
+                "--headless=new",
+                "--no-sandbox",
+                "--disable-dev-shm-usage",
+                "--disable-gpu",
+                "--window-size=1920,1080"
+        );
 
         try {
             if (remote.equalsIgnoreCase("true")) {
                 driver.set(
-                    new RemoteWebDriver(
-                        new URL("http://selenium:4444"),
-                        options
-                    )
+                        new RemoteWebDriver(
+                                new URL("http://selenium:4444"),
+                                options
+                        )
                 );
             } else {
                 WebDriverManager.chromedriver().setup();
