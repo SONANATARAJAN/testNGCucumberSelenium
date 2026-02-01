@@ -23,11 +23,11 @@ pipeline {
                 sh '''
                 docker rm -f selenium || true
 
-                docker run -d \
-                  --name selenium \
-                  --network selenium-net \
-                  --shm-size="2g" \
-                  selenium/standalone-chrome
+             docker run -d \
+  --name selenium \
+  --network selenium-net \
+  --shm-size="2g" \
+  selenium/standalone-chrome:latest
                 '''
             }
         }
