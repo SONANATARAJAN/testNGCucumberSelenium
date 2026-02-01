@@ -19,6 +19,8 @@ public class DriverFactory {
         String remote = System.getProperty("remote", "false");
 
         ChromeOptions options = new ChromeOptions();
+
+        // ✅ GRID SAFE OPTIONS
         options.addArguments(
                 "--headless=new",
                 "--no-sandbox",
