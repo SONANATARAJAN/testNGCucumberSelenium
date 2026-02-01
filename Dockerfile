@@ -4,4 +4,4 @@ WORKDIR /app
 
 COPY . .
 
-RUN gradle clean test --no-daemon
+RUN gradle clean test -Dremote=true --no-daemon
