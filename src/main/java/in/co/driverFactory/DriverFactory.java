@@ -12,38 +12,25 @@ public class DriverFactory {
 
     private static ThreadLocal<WebDriver> driver = new ThreadLocal<>();
 
-    public static void initDriver() {
-
-        if (driver.get() != null) return;
-
-        String remote = System.getProperty("remote", "false");
-
-        ChromeOptions options = new ChromeOptions();
-
-        // ✅ SELENIUM GRID SAFE OPTIONS
-        options.addArguments(
-                "--headless=new",
-                "--no-sandbox",
-                "--disable-dev-shm-usage",
-                "--disable-gpu",
-                "--window-size=1920,1080"
-        );
-
+    public static WebDriver initDriver(boolean isRemote) {
         try {
-            if (remote.equalsIgnoreCase("true")) {
-                driver.set(
-                        new RemoteWebDriver(
-                                new URL("http://selenium:4444/wd/hub"),
-                                options
-                        )
-                );
+            if (isRemote) {
+                ChromeOptions options = new ChromeOptions();
+                options.addArguments("--no-sandbox");
+                options.addArguments("--disable-dev-shm-usage");
+                options.addArguments("--disable-gpu");
+
+                driver.set(new RemoteWebDriver(
+                        new URL("http://selenium:4444/wd/hub"),
+                        options
+                ));
             } else {
-                WebDriverManager.chromedriver().setup();
-                driver.set(new ChromeDriver(options));
+                driver.set(new ChromeDriver());
             }
         } catch (Exception e) {
-            throw new RuntimeException("❌ Driver initialization failed", e);
+            throw new RuntimeException(e);
         }
+        return driver.get();
     }
 
     public static WebDriver getDriver() {
@@ -56,4 +43,6 @@ public class DriverFactory {
             driver.remove();
         }
     }
+ 
+
 }
