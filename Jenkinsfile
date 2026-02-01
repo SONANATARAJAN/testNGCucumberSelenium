@@ -19,18 +19,23 @@ pipeline {
         }
 
         stage('Start Selenium Container') {
-            steps {
-                sh '''
-                docker rm -f selenium || true
+    steps {
+        sh '''
+        docker rm -f selenium || true
 
-             docker run -d \
-  --name selenium \
-  --network selenium-net \
-  --shm-size="2g" \
-  selenium/standalone-chrome:latest
-                '''
-            }
-        }
+        docker run -d \
+          --name selenium \
+          --network selenium-net \
+          --shm-size="2g" \
+          -p 4444:4444 \
+          selenium/standalone-chrome:4.17.0
+
+        echo "⏳ Waiting for Selenium Grid..."
+        sleep 20
+        '''
+    }
+}
+
 
         stage('Build Test Image') {
             steps {
