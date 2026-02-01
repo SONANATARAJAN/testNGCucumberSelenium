@@ -18,31 +18,31 @@ pipeline {
             }
         }
 
-      stage('Start Selenium Container') {
-    steps {
-        sh '''
-        docker rm -f selenium || true
+        stage('Start Selenium Container') {
+            steps {
+                sh '''
+                docker rm -f selenium || true
 
-        docker run -d \
-          --name selenium \
-          --network selenium-net \
-          --shm-size="2g" \
-          selenium/standalone-chrome:4.17.0
+                docker run -d \
+                  --name selenium \
+                  --network selenium-net \
+                  --shm-size="2g" \
+                  selenium/standalone-chrome:4.17.0
 
-        echo "⏳ Waiting for Selenium Grid to be READY..."
+                echo "⏳ Waiting for Selenium to be READY..."
 
-        until curl -s http://selenium:4444/status | grep -q '"ready":true'; do
-          sleep 2
-        done
+                for i in {1..30}; do
+                  if curl -s http://selenium:4444/status | grep -q '"ready": true'; then
+                    echo "✅ Selenium is READY"
+                    break
+                  fi
+                  sleep 2
+                done
+                '''
+            }
+        }
 
-        echo "✅ Selenium Grid is READY"
-        '''
-    }
-}
-
-
-
-        stage('Build Test Image') {
+        stage('Build Gradle Test Image') {
             steps {
                 sh '''
                 docker build -t cucumber-tests .
@@ -50,30 +50,26 @@ pipeline {
             }
         }
 
-       stage('Run Tests') {
-    steps {
-        sh '''
-        docker run --rm \
-          --network selenium-net \
-          cucumber-tests \
-          ./gradlew test -Dremote=true
-        '''
-    }
-}
-
+        stage('Run Tests') {
+            steps {
+                sh '''
+                docker run --rm \
+                  --network selenium-net \
+                  cucumber-tests
+                '''
+            }
+        }
     }
 
     post {
         always {
-            sh '''
-            docker rm -f selenium || true
-            '''
+            sh 'docker rm -f selenium || true'
         }
         success {
-            echo '✅ Gradle Tests passed successfully'
+            echo '✅ Gradle + Selenium tests passed'
         }
         failure {
-            echo '❌ Gradle Tests failed'
+            echo '❌ Tests failed'
         }
     }
 }
