@@ -54,9 +54,11 @@ pipeline {
     steps {
         sh '''
             docker run --rm \
-              --network selenium-net \
-              cucumber-tests \
-              gradle test -Dremote=true --no-daemon
+  --network selenium-net \
+  -v $WORKSPACE:/app \
+  cucumber-tests \
+  gradle test -Dremote=true --no-daemon
+
         '''
     }
 }
