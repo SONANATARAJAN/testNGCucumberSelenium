@@ -20,6 +20,14 @@ dependencies {
     testImplementation("org.testng:testng:7.12.0")
     // Source: https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager
     implementation("io.github.bonigarcia:webdrivermanager:6.3.3")
+    // ✅ CORRECT EXTENT ADAPTER
+    testImplementation 'com.aventstack:extentreports:5.0.9'
+    // ✅ OFFICIAL EXTENT
+    testImplementation 'com.aventstack:extentreports:5.0.9'
+
+    // ✅ SLF4J FIX (removes warning)
+    testImplementation 'org.slf4j:slf4j-simple:2.0.9'
+
 }
 
 test {

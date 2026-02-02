@@ -1,0 +1,8 @@
+<extentreports>
+    <configuration>
+        <theme>standard</theme>
+        <documentTitle>Cucumber Automation Report</documentTitle>
+        <reportName>Regression Execution</reportName>
+        <encoding>utf-8</encoding>
+    </configuration>
+</extentreports>
