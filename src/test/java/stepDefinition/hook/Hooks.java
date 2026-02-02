@@ -15,7 +15,7 @@ public class Hooks {
 
     @Before
     public void beforeScenario(Scenario scenario) {
-        DriverFactory.initDriver(false);
+        DriverFactory.initDriver(true);
         DriverFactory.getDriver().get("https://www.flipkart.com/");
         scenarioTest = extent.createTest(scenario.getName());
     }
