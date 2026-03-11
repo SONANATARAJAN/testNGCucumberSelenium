@@ -1,5 +1,4 @@
-# 🚀 Latest Fixed Setup: Selenium + Gradle + TestNG + Cucumber (2025)
-
+ 
 This guide provides a **fully working, up‑to‑date, Docker & Jenkins compatible** setup for:
 
 * Selenium **4.x**
